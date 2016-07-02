@@ -11405,5 +11405,23 @@ The `.retina-sprites` mixin generates a CSS rule and media query for retina grou
 }
 .lsv-social
 {
-    float: right;
+    position: absolute;
+    top: 12px;
+    right: 25px;
+}
+@media screen and (max-width: 956px)
+{
+    .lsv-social
+    {
+        display: none;
+    }
+}
+.nav li
+{
+    vertical-align: bottom;
+    text-transform: uppercase;
+}
+.mt
+{
+    margin-top: 70px;
 }
