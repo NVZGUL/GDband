@@ -11388,7 +11388,7 @@ The `.retina-sprites` mixin generates a CSS rule and media query for retina grou
 .navbar-default
 {
     border: none;
-    background-color: #fff;
+    background-color: tarnsparent;
 }
 .navbar-brand:hover
 {
@@ -11424,4 +11424,9 @@ The `.retina-sprites` mixin generates a CSS rule and media query for retina grou
 .mt
 {
     margin-top: 70px;
+}
+.wrapper
+{
+    width: 400px;
+    margin: 70px auto;
 }
