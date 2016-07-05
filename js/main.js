@@ -14663,4 +14663,79 @@ window.event)}))},trackLoadProgress:function(a){if(a.settings.preload){var b,c,d
 loadStarted:function(){if(!this.element.duration)return!1;this.duration=this.element.duration;this.updatePlayhead();this.settings.loadStarted.apply(this)},loadProgress:function(){null!=this.element.buffered&&this.element.buffered.length&&(this.loadStartedCalled||(this.loadStartedCalled=this.loadStarted()),this.loadedPercent=this.element.buffered.end(this.element.buffered.length-1)/this.duration,this.settings.loadProgress.apply(this,[this.loadedPercent]))},playPause:function(){this.playing?this.pause():
 this.play()},play:function(){/(ipod|iphone|ipad)/i.test(navigator.userAgent)&&0==this.element.readyState&&this.init.apply(this);this.settings.preload||(this.settings.preload=!0,this.element.setAttribute("preload","auto"),g[f].events.trackLoadProgress(this));this.playing=!0;this.element.play();this.settings.play.apply(this)},pause:function(){this.playing=!1;this.element.pause();this.settings.pause.apply(this)},setVolume:function(a){this.element.volume=a},trackEnded:function(){this.skipTo.apply(this,
 [0]);this.settings.loop||this.pause.apply(this);this.settings.trackEnded.apply(this)}};var h=function(a,b){var c=[],b=b||document;if(b.getElementsByClassName)c=b.getElementsByClassName(a);else{var d,e,f=b.getElementsByTagName("*"),g=RegExp("(^|\\s)"+a+"(\\s|$)");d=0;for(e=f.length;d<e;d++)g.test(f[d].className)&&c.push(f[d])}return 1<c.length?c:c[0]}})("audiojs","audiojsInstance",this);
-console.log(1);
+$(function() {
+            // Setup the player to autoplay the next track
+            var a = audiojs.createAll({
+                trackEnded: function() {
+                    var next = $('ol li.playing').next();
+                    if (!next.length) next = $('ol li').first();
+                    next.addClass('playing').siblings().removeClass('playing');
+                    audio.load($('a', next).attr('data-src'));
+                    audio.play();
+
+                    $('#sound_name').text($('ol li.playing').text());//////v1
+                }
+            });
+
+            // Load in the first track
+            var audio = a[0];
+            first = $('ol a').attr('data-src');
+            $('ol li').first().addClass('playing');
+            audio.load(first);
+            audio.play();
+
+            $('#sound_name').text($('ol li').first().text());//////v1
+
+            // Load in a track on click
+            $('ol li').click(function(e) {
+                e.preventDefault();
+                $(this).addClass('playing').siblings().removeClass('playing');
+                audio.load($('a', this).attr('data-src'));
+                audio.play();
+            });
+
+            $('ol a').click(function(){
+                var text = $(this).text();
+                $('#sound_name').text(text);
+            });//////v1
+            // Keyboard shortcuts
+            $(document).keydown(function(e) {
+                var unicode = e.charCode ? e.charCode : e.keyCode;
+                // right arrow
+                if (unicode == 39) {
+                    var next = $('li.playing').next();
+                    $('#sound_name').text($('li.playing').next().text());//////v1
+                    if (!next.length) next = $('ol li').first();
+                    next.click();
+                    // back arrow
+                } else if (unicode == 37) {
+                    var prev = $('li.playing').prev();
+                    $('#sound_name').text($('li.playing').prev().text());//////v1
+                    if (!prev.length) prev = $('ol li').last();
+                    prev.click();
+                    // spacebar
+                } else if (unicode == 32) {
+                    audio.playPause();
+                }
+            });
+
+            $(document).ready(function(){
+            $('#bnd-slides').fullpage({
+              'css3': true,
+              'easing': 'easeOutElastic',
+              'fitToSection': false,
+              'fixedElements': '.navbar',
+              'scrollOverflow': false,
+              afterRender: function(){
+                $("#lsv-main_video-text").owlCarousel({
+                  navigation: false,
+                  pagination: false,
+                  slideSpeed: 300,
+                  singleItem:true,
+                  autoPlay: 3000
+                });
+              }
+            });
+            });
+            
+        });

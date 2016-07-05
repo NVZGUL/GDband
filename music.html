@@ -160,8 +160,20 @@
 </nav>
 
 <main id='bnd-slides'>
+    <div class="section">
+        <video id="mb-head-vid" autoplay loop muted tabindex="0" >
+	<source src="img/vids/NORWAY.webm" type="video/webm">
+	<source src="img/vids/NORWAY.mp4" type="video/mp4">
+</video>
 
-	<div class="wrapper">
+<div class="wrapper">
+<div class="video-slogan c-a">
+	<h2>The southern and western parts of Norway, fully exposed to Atlantic storm fronts, experience more precipitation and have milder winters than the eastern and far northern parts. Areas to the east of the coastal mountains are in a rain shadow, and have lower rain and snow totals than the west.</h2>
+</div>
+</div>
+    </div>
+    <div class="section">
+	   <div class="wrapper">
 	<h3 id="sound_name" class="c-a"></h3>
 	<audio preload></audio>
     <ol>
@@ -173,9 +185,9 @@
         <li><a href="#" data-src="audio/06-Fantasy.mp3">Fantasy</a></li>
         <li><a href="#" data-src="audio/07-Shelter.mp3">Shelter</a></li>
         <li><a href="#" data-src="audio/08-Basic Space.mp3">Basic Space</a></li>
-    </
+    </ol>
 </div>
-
+    </div>
 </main>
 
 <!-- JavaScript-->
@@ -183,62 +195,7 @@
 <script async src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
 <script>
-  $(function() {
-            // Setup the player to autoplay the next track
-            var a = audiojs.createAll({
-                trackEnded: function() {
-                    var next = $('ol li.playing').next();
-                    if (!next.length) next = $('ol li').first();
-                    next.addClass('playing').siblings().removeClass('playing');
-                    audio.load($('a', next).attr('data-src'));
-                    audio.play();
-
-                    $('#sound_name').text($('ol li.playing').text());//////v1
-                }
-            });
-
-            // Load in the first track
-            var audio = a[0];
-            first = $('ol a').attr('data-src');
-            $('ol li').first().addClass('playing');
-            audio.load(first);
-            audio.play();
-
-            $('#sound_name').text($('ol li').first().text());//////v1
-
-            // Load in a track on click
-            $('ol li').click(function(e) {
-                e.preventDefault();
-                $(this).addClass('playing').siblings().removeClass('playing');
-                audio.load($('a', this).attr('data-src'));
-                audio.play();
-            });
-
-            $('ol a').click(function(){
-                var text = $(this).text();
-                $('#sound_name').text(text);
-            });//////v1
-            // Keyboard shortcuts
-            $(document).keydown(function(e) {
-                var unicode = e.charCode ? e.charCode : e.keyCode;
-                // right arrow
-                if (unicode == 39) {
-                    var next = $('li.playing').next();
-                    $('#sound_name').text($('li.playing').next().text());//////v1
-                    if (!next.length) next = $('ol li').first();
-                    next.click();
-                    // back arrow
-                } else if (unicode == 37) {
-                    var prev = $('li.playing').prev();
-                    $('#sound_name').text($('li.playing').prev().text());//////v1
-                    if (!prev.length) prev = $('ol li').last();
-                    prev.click();
-                    // spacebar
-                } else if (unicode == 32) {
-                    audio.playPause();
-                }
-            })
-        });
+  
 </script>
 
 </body>
